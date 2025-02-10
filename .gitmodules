@@ -1,0 +1,3 @@
+[submodule "dappkit"]
+	path = dappkit
+	url = git@github.com:AngleProtocol/dappkit.git
