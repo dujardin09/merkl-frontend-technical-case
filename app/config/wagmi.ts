@@ -1,9 +1,15 @@
-import { http, createClient, custom } from "viem";
-import { mainnet, optimism, arbitrum } from "viem/chains";
-import { createConfig } from "wagmi";
+import { createConfig } from 'wagmi'
+import { mainnet, optimism, arbitrum, polygon } from 'wagmi/chains'
+import { http } from 'viem'
+
+const chains = [mainnet, optimism, arbitrum, polygon] as const;
+
+const transports = Object.fromEntries(
+	chains.map((chain) => [chain.id, http()])
+) as any;
 
 export default createConfig({
-	chains: [mainnet, optimism, arbitrum],
-	ssr: true,
-	connectors: [],
-} satisfies Parameters<typeof createConfig>["0"]);
+  chains,
+  transports,
+  ssr: true,
+} satisfies Parameters<typeof createConfig>[0])

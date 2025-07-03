@@ -1,12 +1,25 @@
-import { Container } from "dappkit";
-import { useLoaderData } from "@remix-run/react";
+import { Container, useWalletContext } from "dappkit";
+import { useLoaderData, useNavigate, useRevalidator } from "@remix-run/react";
 import Opportunity from "./Opportunity";
 import { loader } from "~/routes/_index";
+import { useEffect, useState } from "react";
 
 export default function Opportunities() {
-	const { opportunities } = useLoaderData<typeof loader>();
+	const { chainId } = useWalletContext();
+	const loaderData = useLoaderData<typeof loader>();
+	const [opportunities, setOpportunities] = useState(loaderData.opportunities || []);
+	const navigate = useNavigate();
 
-	console.log(opportunities);
+	useEffect(() => {
+		if (chainId) {
+			navigate(`?chainId=${chainId}`, {replace: true});
+		}
+	}, [chainId, navigate]);
+
+	useEffect(() => {
+		setOpportunities(loaderData.opportunities || []);
+	}, [loaderData.opportunities]);
+
 	return (
 		<Container>
 			{opportunities.map((opportunity) => (
