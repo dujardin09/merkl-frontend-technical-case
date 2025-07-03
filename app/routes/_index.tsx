@@ -1,20 +1,23 @@
-import type { MetaFunction } from "@remix-run/node";
-import { Box, Container, Text, Title } from "dappkit";
+import { Container } from "dappkit";
+import Opportunities from "~/components/Opportunities";
+import { MerklApi } from "@merkl/api";
 
-export const meta: MetaFunction = () => {
-	return [
-		{ title: "Merkl Frontend Technical Case" },
-		{ name: "description", content: "Do your best !" },
-	];
-};
+export async function loader() {
+	const { data: opportunities } = await MerklApi(
+		"https://api.merkl.xyz/",
+	).v4.opportunities.index.get({
+		query: { chainId: "1" }
+	});
+
+	if (!opportunities) throw "Could not load opportunities";
+
+	return { opportunities };
+}
 
 export default function Index() {
 	return (
-		<Container className="bg-main-1 flex justify-center h-full items-center">
-			<Box>
-        <Title h={3}>Merkl Technical Case</Title>
-				<Text>It's so empty here...</Text>
-			</Box>
+		<Container className="h-full">
+			<Opportunities />
 		</Container>
 	);
 }
