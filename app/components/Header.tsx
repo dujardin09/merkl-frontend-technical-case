@@ -5,7 +5,7 @@ import Token from "./Token";
 import { useState } from "react";
 
 export default function Header() {
-	const { chainId } = useWalletContext();
+	const { chainId, connected } = useWalletContext();
 	const { tokensSorted } = useLoaderData<typeof loader>();
 	const [selectedToken, setSelectedToken] = useState("no");
 	const navigate = useNavigate();
@@ -35,7 +35,7 @@ export default function Header() {
 			<div className="flex justify-between mb-lg">
 				<WalletButton />
 			</div>
-			<div className="flex justify-center mb-lg">
+			{connected && <div className="flex justify-center mb-lg">
 				<Button
 					className={`mx-md p-lg overflow-hidden cursor-pointer p-2 ${selectedToken === "no" ? 'border-dashed' : 'hover:border-dashed'}`}
 					onClick={handleNoToken}
@@ -44,14 +44,14 @@ export default function Header() {
 				</Button>
 				{tokensSorted.map((token) => (
 					<Token
-						key={ token.id }
-						name={ token.displaySymbol || "" }
-						icon={ token.icon }
+						key={token.id}
+						name={token.displaySymbol || ""}
+						icon={token.icon}
 						onClick={() => handleSelectedToken(token.symbol)}
 						isSelected={selectedToken === token.symbol}
 					/>
 				))}
-			</div>
+			</div>}
 		</Container>
 	)
 }
