@@ -9,15 +9,15 @@ To achieve this you have to use merkl’s [dappkit](https://github.com/AngleProt
 
 # ✅ Requirements
 
-- [ ]  For each opportunity, show at least the opportunity’s name, apr and tvl.
-- [ ]  Display a maximum of 5 of the user’s tokens sorted by dollar value.
-- [ ]  Handle wallet connection & switching chains
-- [ ]  Do not restrict viewing and filtering to connected users
+- [x]  For each opportunity, show at least the opportunity’s name, apr and tvl.
+- [x]  Display a maximum of 5 of the user’s tokens sorted by dollar value.
+- [x]  Handle wallet connection & switching chains
+- [x]  Do not restrict viewing and filtering to connected users
 
 ### 🤩 Bonus ideas
 
-- [ ]  Handle pagination with a static/dynamic page size of your choice
-- [ ]  Handle SSR (being able to share a link to a filtered view)
+- [x]  Handle pagination with a static/dynamic page size of your choice
+- [x]  Handle SSR (being able to share a link to a filtered view)
 - [ ]  Imagine a filter that we don’t have yet on [app.merkl.xyz](http://app.merkl.xyz)
 - [ ]  Tweak the theme of the app or add a theme selector
 
@@ -56,4 +56,3 @@ This project is licensed under the **BSD 3-Clause License with Specific Usage Re
 ## Full License
 
 For detailed terms and conditions, refer to the [`LICENSE`](./LICENSE) file in this repository.
-

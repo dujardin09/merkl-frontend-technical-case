@@ -1,5 +1,5 @@
 import { Box, Button, Container, useWalletContext } from "dappkit";
-import { useLoaderData, useNavigate } from "@remix-run/react";
+import { useLoaderData, useNavigate, useSearchParams } from "@remix-run/react";
 import Opportunity from "./Opportunity";
 import { loader } from "~/routes/_index";
 import { useEffect, useState } from "react";
@@ -12,9 +12,20 @@ export default function Opportunities() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (chainId && pageId) {
-			navigate(`?chainId=${chainId}&pageId=${pageId}`, {replace: true});
-		}
+		let chain = "1";
+		let page = "0";
+
+		if (chainId != undefined)
+			chain = chainId.toString();
+		if (pageId != undefined)
+			page = pageId.toString();
+
+		const params = new URLSearchParams();
+
+		params.set('chainId', chain);
+		params.set('pageId', page);
+
+		navigate(`?${params.toString()}`, {replace: true});
 	}, [chainId, pageId, navigate]);
 
 	useEffect(() => {
@@ -34,7 +45,7 @@ export default function Opportunities() {
 				))}
 			</Box>
 			<div className="flex justify-between mt-lg">
-				<Button onClick={() => setPageId(pageId - 1)}>Previous</Button>
+				<Button onClick={() => setPageId(pageId - 1)} disabled={pageId <= 0}>Previous</Button>
 				<Button onClick={() => setPageId(pageId + 1)}>Next</Button>
 			</div>
 		</Container>
